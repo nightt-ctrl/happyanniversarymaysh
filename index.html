@@ -96,6 +96,12 @@
     animation: glowPulse 2s infinite alternate;
   }
 
+  #time-together {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8em;
+    margin-top: 0.5em;
+  }
+
   @keyframes glowPulse {
     0% { transform: scale(1); text-shadow: 0 0 5px #ff1451; color: #ff1451; }
     50% { transform: scale(1.05); text-shadow: 0 0 15px #ff69b4; color: #ff69b4; }
@@ -234,6 +240,9 @@
   <h1 id="countdown-title" class="bubble">Countdown to our 1st Anniversary!</h1>
   <div id="countdown" class="bubble"></div>
 
+  <!-- NEW: Time Together Counter -->
+  <div id="time-together" class="bubble"></div>
+
   <div id="anniversary-message">
     <h1 class="bubble">Happy 1 year Anniversary, My Love! ❤️</h1>
   </div>
@@ -275,6 +284,7 @@ const messageEl = document.getElementById('anniversary-message');
 const clickMessage = document.getElementById('click-message');
 const modal = document.getElementById('message-modal');
 const photosEl = document.getElementById('photos');
+const timeTogetherEl = document.getElementById('time-together');
 
 // Floating hearts
 const heartsContainer = document.getElementById('hearts-container');
@@ -313,8 +323,24 @@ function updateCountdown() {
   countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
+// Time together counter
+function updateTimeTogether() {
+  const now = new Date();
+  const startDate = new Date('2024-11-19T00:00:00'); 
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  timeTogetherEl.textContent = `We've been together for ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
 updateCountdown();
 setInterval(updateCountdown, 1000);
+updateTimeTogether();
+setInterval(updateTimeTogether, 1000);
 
 // Open & close popup
 clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
