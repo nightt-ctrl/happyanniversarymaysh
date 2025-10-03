@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Anniversary!</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* prevent page scrolling */
+    width: 100%;
+    height: 100%;
+    font-family: 'Dancing Script', cursive;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    transition: background 1s ease;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: white;
+    transform: rotate(-45deg);
+    opacity: 0.8;
+    animation: floatUp linear infinite;
+  }
+  .heart:before,
+  .heart:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+  }
+  .heart:before { top: -7.5px; left: 0; }
+  .heart:after { left: 7.5px; top: 0; }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
+    50% { opacity: 0.4; }
+    100% { transform: translateY(-700px) rotate(-45deg); opacity: 0; }
+  }
+
+  @keyframes floatDown {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
+    50% { opacity: 0.4; }
+    100% { transform: translateY(700px) rotate(-45deg); opacity: 0; }
+  }
+
+  #main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    position: relative;
+    z-index: 1;
+    transition: all 1s ease;
+  }
+
+  .bubble {
+    display: inline-block;
+    padding: 1em 2em;
+    background: rgba(255,255,255,0.85);
+    color: #ff1451;
+    border-radius: 2em;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    max-width: 90%;
+    word-wrap: break-word;
+    transition: all 0.5s ease;
+  }
+
+  h1 { 
+    font-family: 'Great Vibes', cursive; 
+    font-size: 3.5em; 
+    margin-bottom: 0.5em; 
+    animation: glowPulse 2s infinite alternate;
+  }
+
+  #countdown {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5em;
+    margin-top: 0.5em;
+    display: inline-block;
+    animation: glowPulse 2s infinite alternate;
+  }
+
+  @keyframes glowPulse {
+    0% { transform: scale(1); text-shadow: 0 0 5px #ff1451; color: #ff1451; }
+    50% { transform: scale(1.05); text-shadow: 0 0 15px #ff69b4; color: #ff69b4; }
+    100% { transform: scale(1.1); text-shadow: 0 0 25px #ff1451; color: #ff1451; }
+  }
+
+  #anniversary-message { 
+    display: none; 
+    font-size: 1.8em; 
+    margin-top: 0.5em; 
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+
+  #anniversary-message.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #anniversary-message .bubble {
+    max-width: 55%;
+    padding: 0.5em 1.2em;
+    font-size: 2em;
+    margin: 0 auto;
+  }
+
+  #click-message {
+    display: none;
+    margin-top: 1.5em;
+    font-size: 1.4em;
+    cursor: pointer;
+    background: rgba(255,255,255,0.8);
+    color: #ff1451;
+    padding: 0.8em 1.8em;
+    border-radius: 2em;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, background 0.3s ease, opacity 1s ease, transform 1s ease;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  #click-message.show {
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #click-message:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.95);
+  }
+
+  #message-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(255, 105, 180, 0.4);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-content {
+    background: rgba(255,255,255,0.95);
+    color: #ff1451;
+    padding: 2em;
+    border-radius: 1.5em;
+    max-width: 600px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.7;
+    text-align: left;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    animation: zoomIn 0.3s ease;
+  }
+  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  #photos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+    perspective: 1000px;
+    margin-top: 2em;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+  #photos.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .polaroid {
+    position: relative;
+    background: #fff;
+    padding: 0.8em;
+    border-radius: 0.5em;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: rotate(var(--angle));
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 180px;
+  }
+  .polaroid img { width: 100%; border-radius: 0.3em; display: block; }
+  .polaroid:hover { transform: scale(1.05) rotate(0deg); box-shadow: 0 12px 25px rgba(255,20,81,0.5); z-index: 10; }
+  .caption {
+    position: absolute;
+    bottom: -2.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 20, 81, 0.9);
+    color: #fff;
+    font-size: 1em;
+    padding: 0.3em 0.8em;
+    border-radius: 1em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .polaroid:hover .caption { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+<!-- Floating hearts container -->
+<div id="hearts-container"></div>
+
+<div id="main-content">
+  <h1 id="countdown-title" class="bubble">Countdown to Our Anniversary</h1>
+  <div id="countdown" class="bubble"></div>
+
+  <div id="anniversary-message">
+    <h1 class="bubble">Happy Anniversary, My Love! ❤️</h1>
+  </div>
+
+  <div id="click-message">💌 Click to read my message</div>
+
+  <!-- Popup -->
+  <div id="message-modal">
+    <div class="modal-content">
+      <p>
+        Every moment with you has been a beautiful chapter of my life, and I’m so grateful for every laugh, every hug, and every memory we’ve shared. 💗  
+        You make ordinary days feel magical and turn challenges into adventures. Thank you for being my biggest happiness, my safe place, and my best friend.  
+        I promise to keep loving you more deeply with each passing day. Happy Anniversary, my forever. ❤️
+      </p>
+    </div>
+  </div>
+
+  <!-- Polaroid Gallery -->
+  <div id="photos">
+    <div class="polaroid" style="--angle: -5deg;">
+      <img src="photo1.jpg" alt="Memory 1">
+      <div class="caption">Placeholder caption</div>
+    </div>
+    <div class="polaroid" style="--angle: 3deg;">
+      <img src="photo2.jpg" alt="Memory 2">
+      <div class="caption">Placeholder caption</div>
+    </div>
+    <div class="polaroid" style="--angle: -8deg;">
+      <img src="photo3.jpg" alt="Memory 3">
+      <div class="caption">Placeholder caption</div>
+    </div>
+    <div class="polaroid" style="--angle: 4deg;">
+      <img src="photo4.jpg" alt="Memory 4">
+      <div class="caption">Placeholder caption</div>
+    </div>
+    <div class="polaroid" style="--angle: -6deg;">
+      <img src="photo5.jpg" alt="Memory 5">
+      <div class="caption">Placeholder caption</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const countdownEl = document.getElementById('countdown');
+const countdownTitle = document.getElementById('countdown-title');
+const messageEl = document.getElementById('anniversary-message');
+const clickMessage = document.getElementById('click-message');
+const modal = document.getElementById('message-modal');
+const photosEl = document.getElementById('photos');
+
+// Floating hearts
+const heartsContainer = document.getElementById('hearts-container');
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+  heart.style.animationName = Math.random() > 0.5 ? 'floatUp' : 'floatDown';
+  heartsContainer.appendChild(heart);
+  setTimeout(() => { heart.remove(); }, 6000);
+}
+setInterval(createHeart, 300);
+
+function updateCountdown() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const anniversary = new Date(`${currentYear}-11-19T00:00:00`);
+
+  if (now >= anniversary) {
+    document.body.style.background = 'linear-gradient(135deg, #ff69b4, #ff1493)';
+    countdownEl.style.display = 'none';
+    countdownTitle.style.display = 'none';
+    messageEl.classList.add('show');
+    clickMessage.classList.add('show');
+    photosEl.classList.add('show');
+    return;
+  }
+
+  const diff = anniversary - now;
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  const minutes = Math.floor((diff / (1000*60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Open & close popup
+clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
+modal.addEventListener('click', () => { modal.style.display = 'none'; });
+</script>
+
+</body>
+</html>
