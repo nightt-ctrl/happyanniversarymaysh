@@ -229,6 +229,58 @@
   }
   .polaroid:hover .caption { opacity: 1; }
 
+  /* Lightbox overlay */
+  #lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    /* ensure image + caption stack vertically */
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  #lightbox img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 1em;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s ease;
+  }
+
+  /* Lightbox caption — matches polaroid bubble style */
+  #lightbox-caption {
+    margin-top: 1em;
+    background: rgba(255, 20, 81, 0.9);
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1em;
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
+    text-align: center;
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2.5em;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+  }
+  #lightbox-close:hover { transform: scale(1.2); }
+
 </style>
 </head>
 <body>
@@ -275,6 +327,13 @@
       <div class="caption">My favorite place in the whole world: your arms.</div>
     </div>
   </div>
+</div>
+
+<!-- Lightbox (caption added below image) -->
+<div id="lightbox">
+  <span id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged photo">
+  <div id="lightbox-caption"></div>
 </div>
 
 <script>
@@ -345,6 +404,34 @@ setInterval(updateTimeTogether, 1000);
 // Open & close popup
 clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
 modal.addEventListener('click', () => { modal.style.display = 'none'; });
+
+// Lightbox logic (caption added below)
+const polaroids = document.querySelectorAll('.polaroid');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxClose = document.getElementById('lightbox-close');
+
+polaroids.forEach(card => {
+  const img = card.querySelector('img');
+  const caption = card.querySelector('.caption');
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    // set caption text from the clicked polaroid
+    lightboxCaption.textContent = caption ? caption.textContent : '';
+    lightbox.style.display = 'flex';
+  });
+});
+
+lightboxClose.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) { // click outside image
+    lightbox.style.display = 'none';
+  }
+});
 </script>
 
 </body>
