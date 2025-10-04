@@ -193,10 +193,12 @@
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease;
+    pointer-events: none; /* disable clicking when hidden */
   }
   #photos.show {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto; /* enable clicking once shown */
   }
 
   .polaroid {
@@ -239,7 +241,6 @@
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    /* ensure image + caption stack vertically */
     flex-direction: column;
     text-align: center;
     padding: 20px;
@@ -254,7 +255,6 @@
     animation: zoomIn 0.3s ease;
   }
 
-  /* Lightbox caption — matches polaroid bubble style */
   #lightbox-caption {
     margin-top: 1em;
     background: rgba(255, 20, 81, 0.9);
@@ -280,10 +280,52 @@
     transition: transform 0.2s ease;
   }
   #lightbox-close:hover { transform: scale(1.2); }
-
 </style>
 </head>
 <body>
+
+<!-- Background Music -->
+<audio id="bg-music" autoplay loop muted>
+  <source src="https://nightt-ctrl.github.io/happyanniversarymaysh/ONLY.mp3" type="audio/mpeg">
+</audio>
+<div id="music-control" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-size: 20px;
+  z-index: 999;
+">🔇</div>
+
+<script>
+const bgMusic = document.getElementById('bg-music');
+const musicControl = document.getElementById('music-control');
+let isPlaying = false;
+
+// Try to autoplay muted, then unmute on first click
+document.addEventListener('click', () => {
+  if (!isPlaying) {
+    bgMusic.muted = false;
+    bgMusic.play().catch(err => console.log('Autoplay blocked:', err));
+    musicControl.textContent = '🔊';
+    isPlaying = true;
+  }
+}, { once: true });
+
+musicControl.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicControl.textContent = '🔊';
+  } else {
+    bgMusic.pause();
+    musicControl.textContent = '🔇';
+  }
+});
+</script>
 
 <!-- Floating hearts container -->
 <div id="hearts-container"></div>
@@ -292,7 +334,6 @@
   <h1 id="countdown-title" class="bubble">Countdown to our 1st Anniversary!</h1>
   <div id="countdown" class="bubble"></div>
 
-  <!-- NEW: Time Together Counter -->
   <div id="time-together" class="bubble"></div>
 
   <div id="anniversary-message">
@@ -301,18 +342,16 @@
 
   <div id="click-message">💌 Click to read my message</div>
 
-  <!-- Popup -->
   <div id="message-modal">
     <div class="modal-content">
       <p>
         Every moment with you has been a beautiful chapter of my life, and I’m so grateful for every laugh, every hug, and every memory we’ve shared. 💗  
-        You make ordinary days feel magical, fun, special and turn challenges into adventures. Thank you for being my biggest happiness, my safe place, my best friend, my everything.  
+        You make ordinary days feel magical, fun, special. Thank you for being my biggest happiness, my safe place, my best friend, my everything. Your the best girlfriend one could ever ask for, and I'm happy that I have you in my life.
         I promise to keep loving you more deeply with each passing day. Happy 1 year Anniversary, my forever. ❤️
       </p>
     </div>
   </div>
 
-  <!-- Polaroid Gallery -->
   <div id="photos">
     <div class="polaroid" style="--angle: -5deg;">
       <img src="https://i.imgur.com/UgCxZtl.jpeg" alt="Memory 1">
@@ -329,7 +368,6 @@
   </div>
 </div>
 
-<!-- Lightbox (caption added below image) -->
 <div id="lightbox">
   <span id="lightbox-close">&times;</span>
   <img id="lightbox-img" src="" alt="Enlarged photo">
@@ -382,7 +420,6 @@ function updateCountdown() {
   countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
-// Time together counter
 function updateTimeTogether() {
   const now = new Date();
   const startDate = new Date('2024-11-19T00:00:00'); 
@@ -401,11 +438,9 @@ setInterval(updateCountdown, 1000);
 updateTimeTogether();
 setInterval(updateTimeTogether, 1000);
 
-// Open & close popup
 clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
 modal.addEventListener('click', () => { modal.style.display = 'none'; });
 
-// Lightbox logic (caption added below)
 const polaroids = document.querySelectorAll('.polaroid');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
@@ -417,7 +452,6 @@ polaroids.forEach(card => {
   const caption = card.querySelector('.caption');
   img.addEventListener('click', () => {
     lightboxImg.src = img.src;
-    // set caption text from the clicked polaroid
     lightboxCaption.textContent = caption ? caption.textContent : '';
     lightbox.style.display = 'flex';
   });
@@ -428,7 +462,7 @@ lightboxClose.addEventListener('click', () => {
 });
 
 lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) { // click outside image
+  if (e.target === lightbox) {
     lightbox.style.display = 'none';
   }
 });
