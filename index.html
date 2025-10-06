@@ -349,6 +349,22 @@ musicControl.addEventListener('click', () => {
         You make ordinary days feel magical, fun, special. Thank you for being my biggest happiness, my safe place, my best friend, my everything. Your the best girlfriend one could ever ask for, and I'm happy that I have you in my life.
         I promise to keep loving you more deeply with each passing day. Happy 1 year Anniversary, my forever. ❤️
       </p>
+
+      <!-- NEW BUTTON ADDED -->
+      <button id="choco-button" style="
+        margin-top: 1.5em;
+        background: #ff69b4;
+        color: #fff;
+        font-size: 1.1em;
+        padding: 0.8em 1.5em;
+        border: none;
+        border-radius: 1.5em;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, background 0.3s ease;
+      ">
+        🍫 Click here for chocolates and love! 💝
+      </button>
     </div>
   </div>
 
@@ -439,34 +455,42 @@ updateTimeTogether();
 setInterval(updateTimeTogether, 1000);
 
 clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
-modal.addEventListener('click', () => { modal.style.display = 'none'; });
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-const polaroids = document.querySelectorAll('.polaroid');
+// Lightbox
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const lightboxClose = document.getElementById('lightbox-close');
 
-polaroids.forEach(card => {
-  const img = card.querySelector('img');
-  const caption = card.querySelector('.caption');
-  img.addEventListener('click', () => {
+document.querySelectorAll('.polaroid').forEach(p => {
+  p.addEventListener('click', () => {
+    const img = p.querySelector('img');
+    const caption = p.querySelector('.caption').innerText;
     lightboxImg.src = img.src;
-    lightboxCaption.textContent = caption ? caption.textContent : '';
+    lightboxCaption.textContent = caption;
     lightbox.style.display = 'flex';
   });
 });
+lightboxClose.addEventListener('click', () => { lightbox.style.display = 'none'; });
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.style.display = 'none'; });
 
-lightboxClose.addEventListener('click', () => {
-  lightbox.style.display = 'none';
-});
+/* --- NEW DISCORD WEBHOOK BUTTON CODE --- */
+const chocoButton = document.getElementById("choco-button");
+chocoButton.addEventListener("click", () => {
+  fetch("https://discord.com/api/webhooks/1419813761698500709/ZkGwPhPjhjzU0G8c3OHoO_Gj-aB1wAImGms5uorJL7oQU8r2I2-JfTUWPJZzP-fvOzKW", { // replace with your webhook
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: "🍫❤️ She clicked the button! Time to give her chocolates and love! <@1348484486173691936>"
+    })
+  })
+  .then(res => console.log("Webhook sent:", res.status))
+  .catch(err => console.error("Error sending webhook:", err));
 
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) {
-    lightbox.style.display = 'none';
-  }
+  chocoButton.textContent = "Sent with love! 💕";
+  chocoButton.disabled = true;
 });
 </script>
-
 </body>
 </html>
