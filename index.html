@@ -9,7 +9,7 @@
   html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* prevent page scrolling */
+    overflow: hidden;
     width: 100%;
     height: 100%;
     font-family: 'Dancing Script', cursive;
@@ -23,7 +23,6 @@
     transition: background 1s ease;
   }
 
-  /* Floating hearts */
   .heart {
     position: absolute;
     width: 15px;
@@ -140,9 +139,9 @@
     padding: 0.8em 1.8em;
     border-radius: 2em;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, background 0.3s ease, opacity 1s ease, transform 1s ease;
     opacity: 0;
     transform: translateY(50px);
+    transition: transform 0.3s ease, background 0.3s ease, opacity 1s ease, transform 1s ease;
   }
   #click-message.show {
     display: inline-block;
@@ -181,7 +180,11 @@
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     animation: zoomIn 0.3s ease;
   }
-  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  @keyframes zoomIn { 
+    from { transform: scale(0.8); opacity: 0; } 
+    to { transform: scale(1); opacity: 1; } 
+  }
 
   #photos {
     display: flex;
@@ -193,12 +196,12 @@
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease;
-    pointer-events: none; /* disable clicking when hidden */
+    pointer-events: none;
   }
   #photos.show {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto; /* enable clicking once shown */
+    pointer-events: auto;
   }
 
   .polaroid {
@@ -213,7 +216,12 @@
     width: 180px;
   }
   .polaroid img { width: 100%; border-radius: 0.3em; display: block; }
-  .polaroid:hover { transform: scale(1.05) rotate(0deg); box-shadow: 0 12px 25px rgba(255,20,81,0.5); z-index: 10; }
+  .polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 12px 25px rgba(255,20,81,0.5);
+    z-index: 10;
+  }
+
   .caption {
     position: absolute;
     bottom: -2.5em;
@@ -231,7 +239,6 @@
   }
   .polaroid:hover .caption { opacity: 1; }
 
-  /* Lightbox overlay */
   #lightbox {
     display: none;
     position: fixed;
@@ -266,7 +273,6 @@
     display: inline-block;
     max-width: 80%;
     word-wrap: break-word;
-    text-align: center;
   }
 
   #lightbox-close {
@@ -280,6 +286,7 @@
     transition: transform 0.2s ease;
   }
   #lightbox-close:hover { transform: scale(1.2); }
+
 </style>
 </head>
 <body>
@@ -288,6 +295,7 @@
 <audio id="bg-music" autoplay loop muted>
   <source src="https://nightt-ctrl.github.io/happyanniversarymaysh/ONLY.mp3" type="audio/mpeg">
 </audio>
+
 <div id="music-control" style="
   position: fixed;
   bottom: 20px;
@@ -306,7 +314,6 @@ const bgMusic = document.getElementById('bg-music');
 const musicControl = document.getElementById('music-control');
 let isPlaying = false;
 
-// Try to autoplay muted, then unmute on first click
 document.addEventListener('click', () => {
   if (!isPlaying) {
     bgMusic.muted = false;
@@ -327,13 +334,11 @@ musicControl.addEventListener('click', () => {
 });
 </script>
 
-<!-- Floating hearts container -->
 <div id="hearts-container"></div>
 
 <div id="main-content">
   <h1 id="countdown-title" class="bubble">Countdown to our 1st Anniversary!</h1>
   <div id="countdown" class="bubble"></div>
-
   <div id="time-together" class="bubble"></div>
 
   <div id="anniversary-message">
@@ -349,22 +354,6 @@ musicControl.addEventListener('click', () => {
         You make ordinary days feel magical, fun, special. Thank you for being my biggest happiness, my safe place, my best friend, my everything. Your the best girlfriend one could ever ask for, and I'm happy that I have you in my life.
         I promise to keep loving you more deeply with each passing day. Happy 1 year Anniversary, my forever. ❤️
       </p>
-
-      <!-- NEW BUTTON ADDED -->
-      <button id="choco-button" style="
-        margin-top: 1.5em;
-        background: #ff69b4;
-        color: #fff;
-        font-size: 1.1em;
-        padding: 0.8em 1.5em;
-        border: none;
-        border-radius: 1.5em;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease, background 0.3s ease;
-      ">
-        🍫 Click here for chocolates and love! 💝
-      </button>
     </div>
   </div>
 
@@ -399,7 +388,7 @@ const modal = document.getElementById('message-modal');
 const photosEl = document.getElementById('photos');
 const timeTogetherEl = document.getElementById('time-together');
 
-// Floating hearts
+// Hearts
 const heartsContainer = document.getElementById('hearts-container');
 function createHeart() {
   const heart = document.createElement('div');
@@ -451,6 +440,7 @@ function updateTimeTogether() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
 updateTimeTogether();
 setInterval(updateTimeTogether, 1000);
 
@@ -472,25 +462,10 @@ document.querySelectorAll('.polaroid').forEach(p => {
     lightbox.style.display = 'flex';
   });
 });
+
 lightboxClose.addEventListener('click', () => { lightbox.style.display = 'none'; });
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.style.display = 'none'; });
-
-/* --- NEW DISCORD WEBHOOK BUTTON CODE --- */
-const chocoButton = document.getElementById("choco-button");
-chocoButton.addEventListener("click", () => {
-  fetch("https://discord.com/api/webhooks/1419813761698500709/ZkGwPhPjhjzU0G8c3OHoO_Gj-aB1wAImGms5uorJL7oQU8r2I2-JfTUWPJZzP-fvOzKW", { // replace with your webhook
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: "🍫❤️ She clicked the button! Time to give her chocolates and love! <@1348484486173691936>"
-    })
-  })
-  .then(res => console.log("Webhook sent:", res.status))
-  .catch(err => console.error("Error sending webhook:", err));
-
-  chocoButton.textContent = "Sent with love! 💕";
-  chocoButton.disabled = true;
-});
 </script>
+
 </body>
 </html>
