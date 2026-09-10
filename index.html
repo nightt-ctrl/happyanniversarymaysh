@@ -1,470 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Happy Anniversary Sayanggg 💗</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    font-family: 'Dancing Script', cursive;
-    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    text-align: center;
-    transition: background 1s ease;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .heart {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: white;
-    transform: rotate(-45deg);
-    opacity: 0.8;
-    animation: floatUp linear infinite;
-  }
-  .heart:before,
-  .heart:after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-radius: 50%;
-  }
-  .heart:before { top: -7.5px; left: 0; }
-  .heart:after { left: 7.5px; top: 0; }
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
 
-  @keyframes floatUp {
-    0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
-    50% { opacity: 0.4; }
-    100% { transform: translateY(-700px) rotate(-45deg); opacity: 0; }
-  }
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf2f4, #f8dfe5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+  padding: 30px 15px;
+}
 
-  @keyframes floatDown {
-    0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
-    50% { opacity: 0.4; }
-    100% { transform: translateY(700px) rotate(-45deg); opacity: 0; }
-  }
+/* Floating hearts */
 
-  #main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    position: relative;
-    z-index: 1;
-    transition: all 1s ease;
-  }
+.heart {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  transform: rotate(-45deg);
+  animation: floatUp linear infinite;
+  pointer-events: none;
+}
 
-  .bubble {
-    display: inline-block;
-    padding: 1em 2em;
-    background: rgba(255,255,255,0.85);
-    color: #ff1451;
-    border-radius: 2em;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    max-width: 90%;
-    word-wrap: break-word;
-    transition: all 0.5s ease;
-  }
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
 
-  h1 { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: 3.5em; 
-    margin-bottom: 0.5em; 
-    animation: glowPulse 2s infinite alternate;
-  }
+.heart::before {
+  top: -6px;
+  left: 0;
+}
 
-  #countdown {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.5em;
-    margin-top: 0.5em;
-    display: inline-block;
-    animation: glowPulse 2s infinite alternate;
-  }
+.heart::after {
+  top: 0;
+  left: 6px;
+}
 
-  #time-together {
-    font-family: 'Great Vibes', cursive;
-    font-size: 1.8em;
-    margin-top: 0.5em;
-  }
-
-  @keyframes glowPulse {
-    0% { transform: scale(1); text-shadow: 0 0 5px #ff1451; color: #ff1451; }
-    50% { transform: scale(1.05); text-shadow: 0 0 15px #ff69b4; color: #ff69b4; }
-    100% { transform: scale(1.1); text-shadow: 0 0 25px #ff1451; color: #ff1451; }
-  }
-
-  #anniversary-message { 
-    display: none; 
-    font-size: 1.8em; 
-    margin-top: 0.5em; 
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(-45deg);
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s ease;
   }
 
-  #anniversary-message.show {
-    display: block;
+  15% {
+    opacity: 0.7;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(-120px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* Main letter */
+
+.letter {
+  position: relative;
+  z-index: 2;
+  width: min(720px, 94vw);
+  background: rgba(255, 255, 255, 0.97);
+  padding: 55px 60px;
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 60px rgba(100, 40, 55, 0.12);
+
+  animation: appear 1.2s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
+}
 
-  #anniversary-message .bubble {
-    max-width: 55%;
-    padding: 0.5em 1.2em;
-    font-size: 2em;
-    margin: 0 auto;
-  }
+.small-heart {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
 
-  #click-message {
-    display: none;
-    margin-top: 1.5em;
-    font-size: 1.4em;
-    cursor: pointer;
-    background: rgba(255,255,255,0.8);
-    color: #ff1451;
-    padding: 0.8em 1.8em;
-    border-radius: 2em;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateY(50px);
-    transition: transform 0.3s ease, background 0.3s ease, opacity 1s ease, transform 1s ease;
-  }
-  #click-message.show {
-    display: inline-block;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  #click-message:hover {
-    transform: scale(1.05);
-    background: rgba(255,255,255,0.95);
-  }
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 42px;
+  font-weight: 500;
+  text-align: center;
+  color: #c95b73;
+  margin: 0 0 35px;
+}
 
-  #message-modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(255, 105, 180, 0.4);
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.4s ease;
-  }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.message {
+  color: #4d4144;
+  font-size: 16px;
+  line-height: 1.9;
+}
 
-  .modal-content {
-    background: rgba(255,255,255,0.95);
-    color: #ff1451;
-    padding: 2em;
-    border-radius: 1.5em;
-    max-width: 600px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.2em;
-    line-height: 1.7;
-    text-align: left;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    animation: zoomIn 0.3s ease;
+.message p {
+  margin: 0 0 22px;
+}
+
+.signature {
+  margin-top: 35px;
+  text-align: right;
+  font-family: 'Dancing Script', cursive;
+  font-size: 27px;
+  color: #c95b73;
+}
+
+.footer-heart {
+  text-align: center;
+  margin-top: 35px;
+  font-size: 20px;
+  opacity: 0.65;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 15px;
   }
 
-  @keyframes zoomIn { 
-    from { transform: scale(0.8); opacity: 0; } 
-    to { transform: scale(1); opacity: 1; } 
+  .letter {
+    padding: 35px 25px;
   }
 
-  #photos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5em;
-    perspective: 1000px;
-    margin-top: 2em;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s ease;
-    pointer-events: none;
-  }
-  #photos.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  h1 {
+    font-size: 35px;
+    margin-bottom: 25px;
   }
 
-  .polaroid {
-    position: relative;
-    background: #fff;
-    padding: 0.8em;
-    border-radius: 0.5em;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    transform: rotate(var(--angle));
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 180px;
-  }
-  .polaroid img { width: 100%; border-radius: 0.3em; display: block; }
-  .polaroid:hover {
-    transform: scale(1.05) rotate(0deg);
-    box-shadow: 0 12px 25px rgba(255,20,81,0.5);
-    z-index: 10;
+  .message {
+    font-size: 15px;
+    line-height: 1.8;
   }
 
-  .caption {
-    position: absolute;
-    bottom: -2.5em;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 20, 81, 0.9);
-    color: #fff;
-    font-size: 1em;
-    padding: 0.3em 0.8em;
-    border-radius: 1em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    white-space: nowrap;
+  .signature {
+    font-size: 24px;
   }
-  .polaroid:hover .caption { opacity: 1; }
-
-  #lightbox {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  #lightbox img {
-    max-width: 90%;
-    max-height: 85%;
-    border-radius: 1em;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: zoomIn 0.3s ease;
-  }
-
-  #lightbox-caption {
-    margin-top: 1em;
-    background: rgba(255, 20, 81, 0.9);
-    color: #fff;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.1em;
-    padding: 0.5em 1em;
-    border-radius: 1em;
-    display: inline-block;
-    max-width: 80%;
-    word-wrap: break-word;
-  }
-
-  #lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 2.5em;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s ease;
-  }
-  #lightbox-close:hover { transform: scale(1.2); }
-
+}
 </style>
 </head>
+
 <body>
 
-<!-- Background Music -->
-<audio id="bg-music" autoplay loop muted>
-  <source src="https://nightt-ctrl.github.io/happyanniversarymaysh/ONLY.mp3" type="audio/mpeg">
-</audio>
+<div id="hearts"></div>
 
-<div id="music-control" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(255,255,255,0.8);
-  padding: 10px 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  font-size: 20px;
-  z-index: 999;
-">🔇</div>
+<div class="letter">
 
-<script>
-const bgMusic = document.getElementById('bg-music');
-const musicControl = document.getElementById('music-control');
-let isPlaying = false;
+  <div class="small-heart">♡</div>
 
-document.addEventListener('click', () => {
-  if (!isPlaying) {
-    bgMusic.muted = false;
-    bgMusic.play().catch(err => console.log('Autoplay blocked:', err));
-    musicControl.textContent = '🔊';
-    isPlaying = true;
-  }
-}, { once: true });
+  <h1>For You</h1>
 
-musicControl.addEventListener('click', () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicControl.textContent = '🔊';
-  } else {
-    bgMusic.pause();
-    musicControl.textContent = '🔇';
-  }
-});
-</script>
+  <div class="message">
 
-<div id="hearts-container"></div>
+    <p>
+      I don't really know if you'll ever see this.
+      Honestly, I doubt you will. But somehow, I still wanted to write it.
+    </p>
 
-<div id="main-content">
-  <h1 id="countdown-title" class="bubble">Countdown to our 1st Anniversary!</h1>
-  <div id="countdown" class="bubble"></div>
-  <div id="time-together" class="bubble"></div>
+    <p>
+      I miss you.
+    </p>
 
-  <div id="anniversary-message">
-    <h1 class="bubble">Happy 1 year Anniversary, My Love! ❤️</h1>
+    <p>
+      I miss the little things more than anything. Your smile, your laugh,
+      the way you made ordinary moments feel special. I miss talking to you
+      about random things, spending time together, and just knowing that you
+      were there.
+    </p>
+
+    <p>
+      I still think about all the memories we made. The moments that probably
+      seemed so small at the time, but mean so much to me now. The smiles,
+      the hugs, the laughs, the places we went, the little gifts we gave each
+      other, and all those moments where I felt genuinely happy just because
+      I was with you.
+    </p>
+
+    <p>
+      Sometimes I'll come across something that reminds me of you, and for a
+      moment, it feels like everything comes back.
+    </p>
+
+    <p>
+      And I still love you.
+    </p>
+
+    <p>
+      I don't say that expecting anything from you. I don't want this to make
+      you feel guilty, or like you owe me something. I just don't want to lie
+      about how I feel.
+    </p>
+
+    <p>
+      You meant so much to me.
+    </p>
+
+    <p>
+      You were someone I could laugh with, be myself around, and make memories
+      with. And even though things didn't end the way I wished they would,
+      that doesn't erase all the good that happened between us.
+    </p>
+
+    <p>
+      But I'm also grateful.
+    </p>
+
+    <p>
+      Grateful that I got to know you. Grateful for every smile you gave me.
+      Grateful for every hug, every conversation, every silly moment, every
+      gift, every memory, and every second that made me feel lucky to have you.
+    </p>
+
+    <p>
+      If I could go back, I wouldn't erase any of it.
+    </p>
+
+    <p>
+      Even the memories that hurt now are still memories I wouldn't trade.
+    </p>
+
+    <p>
+      I don't know what the future holds, and maybe one day this feeling will
+      become something quieter. Maybe I'll look back at all of this and smile
+      instead of feeling that ache in my chest. But I probably won't. Lmaoo.
+    </p>
+
+    <p>
+      But right now, I just miss you.
+    </p>
+
+    <p>
+      And a part of me will probably always care about you. Well, all of me.
+    </p>
+
+    <p>
+      Thank you for being such a beautiful part of my life.
+    </p>
+
+    <p>
+      I hope you're happy.
+    </p>
+
+    <p>
+      And wherever life takes you, I hope you always remember that there was
+      someone who loved you deeply, cherished every memory with you, and will
+      always be grateful that you were once a part of his story.
+    </p>
+
+    <p>
+      I miss you, sayang.
+    </p>
+
+    <p>
+      I still love you. ❤️
+    </p>
+
   </div>
 
-  <div id="click-message">💌 Click to read my message</div>
-
-  <div id="message-modal">
-    <div class="modal-content">
-      <p>
-        Every moment with you has been a beautiful chapter of my life, and I’m so grateful for every laugh, every hug, and every memory we’ve shared. 💗  
-        You make ordinary days feel magical, fun, special. Thank you for being my biggest happiness, my safe place, my best friend, my everything. Your the best girlfriend one could ever ask for, and I'm happy that I have you in my life.
-        I promise to keep loving you more deeply with each passing day. Happy 1 year Anniversary, my forever. ❤️
-      </p>
-    </div>
+  <div class="signature">
+    — From someone who still cares
   </div>
 
-  <div id="photos">
-    <div class="polaroid" style="--angle: -5deg;">
-      <img src="https://i.imgur.com/UgCxZtl.jpeg" alt="Memory 1">
-      <div class="caption">Balcony views, but you’re still the best view</div>
-    </div>
-    <div class="polaroid" style="--angle: 3deg;">
-      <img src="https://i.imgur.com/cm6mges.jpeg" alt="Memory 2">
-      <div class="caption">Best kind of bus ride: me sleeping, you holding me close</div>
-    </div>
-    <div class="polaroid" style="--angle: -8deg;">
-      <img src="https://i.imgur.com/e7bw82s.png" alt="Memory 3">
-      <div class="caption">My favorite place in the whole world: your arms.</div>
-    </div>
+  <div class="footer-heart">
+    ♡
   </div>
+
 </div>
 
-<div id="lightbox">
-  <span id="lightbox-close">&times;</span>
-  <img id="lightbox-img" src="" alt="Enlarged photo">
-  <div id="lightbox-caption"></div>
-</div>
-
 <script>
-const countdownEl = document.getElementById('countdown');
-const countdownTitle = document.getElementById('countdown-title');
-const messageEl = document.getElementById('anniversary-message');
-const clickMessage = document.getElementById('click-message');
-const modal = document.getElementById('message-modal');
-const photosEl = document.getElementById('photos');
-const timeTogetherEl = document.getElementById('time-together');
 
-// Hearts
-const heartsContainer = document.getElementById('hearts-container');
+/* Create floating hearts */
+
+const heartsContainer = document.getElementById("hearts");
+
 function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-  heart.style.animationName = Math.random() > 0.5 ? 'floatUp' : 'floatDown';
+
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+
+  heart.style.left = Math.random() * 100 + "vw";
+
+  const size = 7 + Math.random() * 8;
+
+  heart.style.width = size + "px";
+  heart.style.height = size + "px";
+
+  heart.style.animationDuration =
+    (7 + Math.random() * 7) + "s";
+
+  heart.style.animationDelay =
+    Math.random() * 4 + "s";
+
   heartsContainer.appendChild(heart);
-  setTimeout(() => { heart.remove(); }, 6000);
-}
-setInterval(createHeart, 300);
 
-function updateCountdown() {
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const anniversary = new Date(`${currentYear}-01-19T00:00:00`);
-
-  if (now >= anniversary) {
-    document.body.style.background = 'linear-gradient(135deg, #ff69b4, #ff1493)';
-    countdownEl.style.display = 'none';
-    countdownTitle.style.display = 'none';
-    messageEl.classList.add('show');
-    clickMessage.classList.add('show');
-    photosEl.classList.add('show');
-    return;
-  }
-
-  const diff = anniversary - now;
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff / (1000*60*60)) % 24);
-  const minutes = Math.floor((diff / (1000*60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  setTimeout(() => {
+    heart.remove();
+  }, 15000);
 }
 
-function updateTimeTogether() {
-  const now = new Date();
-  const startDate = new Date('2024-11-19T00:00:00'); 
-  const diff = now - startDate;
+setInterval(createHeart, 900);
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  timeTogetherEl.textContent = `We've been together for ${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-updateTimeTogether();
-setInterval(updateTimeTogether, 1000);
-
-clickMessage.addEventListener('click', () => { modal.style.display = 'flex'; });
-modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-
-// Lightbox
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxCaption = document.getElementById('lightbox-caption');
-const lightboxClose = document.getElementById('lightbox-close');
-
-document.querySelectorAll('.polaroid').forEach(p => {
-  p.addEventListener('click', () => {
-    const img = p.querySelector('img');
-    const caption = p.querySelector('.caption').innerText;
-    lightboxImg.src = img.src;
-    lightboxCaption.textContent = caption;
-    lightbox.style.display = 'flex';
-  });
-});
-
-lightboxClose.addEventListener('click', () => { lightbox.style.display = 'none'; });
-lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.style.display = 'none'; });
 </script>
 
 </body>
